@@ -1,4 +1,4 @@
-import { Component, Host, h, Element } from '@stencil/core';
+import { Component, Host, h, Element, Prop } from '@stencil/core';
 import { Map } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
@@ -7,9 +7,21 @@ import state from '../../stores/maplibre';
   styleUrl: 'maplibre-map.css',
   shadow: true,
   })
-export class MaplibreBase {
+export class MaplibreMap {
 
   @Element() el: HTMLElement;
+
+  /**
+   * The minimum zoom level of the map (0-24)
+   */
+  @Prop()
+  minZoom = 0;
+
+  /**
+   * The maximum zoom level of the map (0-24)
+   */
+  @Prop()
+  maxZoom = 22;
 
 
   /* LOAD */
@@ -19,7 +31,9 @@ export class MaplibreBase {
       style: 'https://demotiles.maplibre.org/style.json',
       center: [-74.5, 40],
       zoom: 9,
-      attributionControl: false
+      attributionControl: false,
+      minZoom: this.minZoom,
+      maxZoom: this.maxZoom
     });
   }
 

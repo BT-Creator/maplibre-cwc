@@ -7,6 +7,14 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MaplibreMap {
+        /**
+          * The maximum zoom level of the map (0-24)
+         */
+        "maxZoom": number;
+        /**
+          * The minimum zoom level of the map (0-24)
+         */
+        "minZoom": number;
     }
 }
 declare global {
@@ -22,6 +30,14 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MaplibreMap {
+        /**
+          * The maximum zoom level of the map (0-24)
+         */
+        "maxZoom"?: number;
+        /**
+          * The minimum zoom level of the map (0-24)
+         */
+        "minZoom"?: number;
     }
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;
