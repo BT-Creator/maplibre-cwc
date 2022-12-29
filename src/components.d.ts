@@ -6,32 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MaplibreBase {
+    interface MaplibreMap {
     }
 }
 declare global {
-    interface HTMLMaplibreBaseElement extends Components.MaplibreBase, HTMLStencilElement {
+    interface HTMLMaplibreMapElement extends Components.MaplibreMap, HTMLStencilElement {
     }
-    var HTMLMaplibreBaseElement: {
-        prototype: HTMLMaplibreBaseElement;
-        new (): HTMLMaplibreBaseElement;
+    var HTMLMaplibreMapElement: {
+        prototype: HTMLMaplibreMapElement;
+        new (): HTMLMaplibreMapElement;
     };
     interface HTMLElementTagNameMap {
-        "maplibre-base": HTMLMaplibreBaseElement;
+        "maplibre-map": HTMLMaplibreMapElement;
     }
 }
 declare namespace LocalJSX {
-    interface MaplibreBase {
+    interface MaplibreMap {
     }
     interface IntrinsicElements {
-        "maplibre-base": MaplibreBase;
+        "maplibre-map": MaplibreMap;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "maplibre-base": LocalJSX.MaplibreBase & JSXBase.HTMLAttributes<HTMLMaplibreBaseElement>;
+            "maplibre-map": LocalJSX.MaplibreMap & JSXBase.HTMLAttributes<HTMLMaplibreMapElement>;
         }
     }
 }

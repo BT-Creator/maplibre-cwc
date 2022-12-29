@@ -3,8 +3,8 @@ import { Map } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
 @Component({
-  tag: 'maplibre-base',
-  styleUrl: 'maplibre-base.css',
+  tag: 'maplibre-map',
+  styleUrl: 'maplibre-map.css',
   shadow: true,
   })
 export class MaplibreBase {
