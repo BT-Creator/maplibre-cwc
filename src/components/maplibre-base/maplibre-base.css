@@ -1,0 +1,18 @@
+@import '../../../node_modules/maplibre-gl/dist/maplibre-gl.css';
+
+:root {
+  /**
+  @prop --map-width: The width of the map.
+  */
+  --map-width: 100%;
+
+  /**
+  @prop --map-height: The height of the map.
+  */
+  --map-height: 400px;
+}
+
+#map-instance-element{
+  width: var(--map-width, 100%);
+  height: var(--map-height, 400px);
+}
