@@ -1,12 +1,12 @@
 import { Component, Host, h, Prop, Watch } from '@stencil/core';
-import { LngLatLike, Marker } from 'maplibre-gl';
+import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
-@Component({tag: 'maplibre-marker', shadow: true})
-export class MaplibreMarker {
+@Component({tag: 'maplibre-popup', shadow: true})
+export class MaplibrePopup {
   /**
-   * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
-   */
+ * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+ */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
 
   /**
@@ -15,9 +15,9 @@ export class MaplibreMarker {
   _lngLat: LngLatLike;
 
   /**
-   * The Marker object
+   * The popup instance
    */
-  _instance: Marker = new Marker();
+  _instance: Popup = new Popup();
 
   /* LOAD */
   componentWillLoad() {
@@ -41,12 +41,14 @@ export class MaplibreMarker {
 
   /* RENDER */
   componentWillRender(){
-    this._instance.setLngLat(this._lngLat);
+    this._instance.setLngLat(this._lngLat).setHTML('<p>Test</p>').setMaxWidth('3OOpx');
   }
 
   render() {
     return (
-      <Host></Host>
+      <Host>
+        <slot></slot>
+      </Host>
     );
   }
 

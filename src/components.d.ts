@@ -15,6 +15,12 @@ export namespace Components {
          */
         "lngLat": LngLatLike | string;
     }
+    interface MaplibrePopup {
+        /**
+          * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+         */
+        "lngLat": LngLatLike | string;
+    }
 }
 declare global {
     interface HTMLMaplibreBaseElement extends Components.MaplibreBase, HTMLStencilElement {
@@ -29,9 +35,16 @@ declare global {
         prototype: HTMLMaplibreMarkerElement;
         new (): HTMLMaplibreMarkerElement;
     };
+    interface HTMLMaplibrePopupElement extends Components.MaplibrePopup, HTMLStencilElement {
+    }
+    var HTMLMaplibrePopupElement: {
+        prototype: HTMLMaplibrePopupElement;
+        new (): HTMLMaplibrePopupElement;
+    };
     interface HTMLElementTagNameMap {
         "maplibre-base": HTMLMaplibreBaseElement;
         "maplibre-marker": HTMLMaplibreMarkerElement;
+        "maplibre-popup": HTMLMaplibrePopupElement;
     }
 }
 declare namespace LocalJSX {
@@ -43,9 +56,16 @@ declare namespace LocalJSX {
          */
         "lngLat": LngLatLike | string;
     }
+    interface MaplibrePopup {
+        /**
+          * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+         */
+        "lngLat": LngLatLike | string;
+    }
     interface IntrinsicElements {
         "maplibre-base": MaplibreBase;
         "maplibre-marker": MaplibreMarker;
+        "maplibre-popup": MaplibrePopup;
     }
 }
 export { LocalJSX as JSX };
@@ -54,6 +74,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "maplibre-base": LocalJSX.MaplibreBase & JSXBase.HTMLAttributes<HTMLMaplibreBaseElement>;
             "maplibre-marker": LocalJSX.MaplibreMarker & JSXBase.HTMLAttributes<HTMLMaplibreMarkerElement>;
+            "maplibre-popup": LocalJSX.MaplibrePopup & JSXBase.HTMLAttributes<HTMLMaplibrePopupElement>;
         }
     }
 }

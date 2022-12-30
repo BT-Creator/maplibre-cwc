@@ -1,19 +1,19 @@
 import { createStore } from '@stencil/store';
-import { Map, Marker } from 'maplibre-gl';
+import { Map, Marker, Popup } from 'maplibre-gl';
 
 declare type MapLibreState = {
   instance: Map | undefined,
-  initMarkers: Array<Marker>
+  initLayers: Array<Marker|Popup>
 }
 
 const { state, onChange } = createStore<MapLibreState>({
   instance: undefined,
-  initMarkers: []
+  initLayers: []
 });
 
 onChange('instance', (newValue) => {
-  state.initMarkers.forEach(marker => marker.addTo(newValue));
-  state.initMarkers = [];
+  state.initLayers.forEach(marker => marker.addTo(newValue));
+  state.initLayers = [];
 });
 
 
