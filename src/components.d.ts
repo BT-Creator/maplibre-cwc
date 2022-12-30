@@ -5,8 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { LngLatLike } from "maplibre-gl";
 export namespace Components {
     interface MaplibreBase {
+    }
+    interface MaplibreMarker {
+        "lngLat": LngLatLike | string;
     }
 }
 declare global {
@@ -16,15 +20,26 @@ declare global {
         prototype: HTMLMaplibreBaseElement;
         new (): HTMLMaplibreBaseElement;
     };
+    interface HTMLMaplibreMarkerElement extends Components.MaplibreMarker, HTMLStencilElement {
+    }
+    var HTMLMaplibreMarkerElement: {
+        prototype: HTMLMaplibreMarkerElement;
+        new (): HTMLMaplibreMarkerElement;
+    };
     interface HTMLElementTagNameMap {
         "maplibre-base": HTMLMaplibreBaseElement;
+        "maplibre-marker": HTMLMaplibreMarkerElement;
     }
 }
 declare namespace LocalJSX {
     interface MaplibreBase {
     }
+    interface MaplibreMarker {
+        "lngLat"?: LngLatLike | string;
+    }
     interface IntrinsicElements {
         "maplibre-base": MaplibreBase;
+        "maplibre-marker": MaplibreMarker;
     }
 }
 export { LocalJSX as JSX };
@@ -32,6 +47,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "maplibre-base": LocalJSX.MaplibreBase & JSXBase.HTMLAttributes<HTMLMaplibreBaseElement>;
+            "maplibre-marker": LocalJSX.MaplibreMarker & JSXBase.HTMLAttributes<HTMLMaplibreMarkerElement>;
         }
     }
 }
