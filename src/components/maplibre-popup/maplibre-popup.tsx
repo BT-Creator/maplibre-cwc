@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Watch } from '@stencil/core';
+import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
@@ -18,6 +18,8 @@ export class MaplibrePopup {
    * The popup instance
    */
   _instance: Popup = new Popup();
+
+  @Element() el: HTMLElement;
 
   /* LOAD */
   componentWillLoad() {
@@ -41,7 +43,7 @@ export class MaplibrePopup {
 
   /* RENDER */
   componentWillRender(){
-    this._instance.setLngLat(this._lngLat).setHTML('<p>Test</p>').setMaxWidth('3OOpx');
+    this._instance.setLngLat(this._lngLat);
   }
 
   render() {
@@ -50,6 +52,10 @@ export class MaplibrePopup {
         <slot></slot>
       </Host>
     );
+  }
+
+  componentDidRender(){
+    this._instance.setHTML(this.el.shadowRoot.innerHTML);
   }
 
   /* DISCONNECT */
