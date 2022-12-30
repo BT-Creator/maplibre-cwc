@@ -1,0 +1,6 @@
+:root{
+  /**
+  @Prop --popup-max-width: The maximum width of the popup itself (Not the content you pass along with it).
+  */
+  --popup-max-width: 300px;
+}

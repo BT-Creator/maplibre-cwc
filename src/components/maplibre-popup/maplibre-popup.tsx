@@ -2,8 +2,13 @@ import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
-@Component({tag: 'maplibre-popup', shadow: true})
+@Component({tag: 'maplibre-popup', shadow: true, styleUrl: 'maplibre-popup.css'})
 export class MaplibrePopup {
+  // TODO: Maybe change this to a CSS variable?
+  /**
+   * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
+   */
+  @Prop() width = '100%'
   /**
  * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
  */
@@ -24,6 +29,7 @@ export class MaplibrePopup {
   /* LOAD */
   componentWillLoad() {
     this.watchLngLat(this.lngLat);
+    this._instance.setMaxWidth(this.width);
   }
 
   componentDidLoad() {

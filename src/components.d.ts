@@ -40,6 +40,10 @@ export namespace Components {
           * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
          */
         "lngLat": LngLatLike | string;
+        /**
+          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
+         */
+        "width": string;
     }
 }
 declare global {
@@ -101,6 +105,10 @@ declare namespace LocalJSX {
           * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
          */
         "lngLat": LngLatLike | string;
+        /**
+          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
+         */
+        "width"?: string;
     }
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;
