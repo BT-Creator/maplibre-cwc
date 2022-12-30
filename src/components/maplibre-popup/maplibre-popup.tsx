@@ -55,7 +55,7 @@ export class MaplibrePopup {
   }
 
   componentDidRender(){
-    this._instance.setHTML(this.el.shadowRoot.innerHTML);
+    this._instance.setDOMContent(this.el.shadowRoot.host);
   }
 
   /* DISCONNECT */
