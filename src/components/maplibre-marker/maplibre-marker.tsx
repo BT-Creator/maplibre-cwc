@@ -10,12 +10,11 @@ export class MaplibreMarker {
   @Prop({reflect: true}) lngLat: LngLatLike | string;
   _lngLat: LngLatLike;
 
-  instance: Marker;
+  instance: Marker = new Marker();
 
   /* LOAD */
   componentWillLoad() {
-    this.watchLngLat(this.lngLat, undefined);
-    this.instance = new Marker().setLngLat(this._lngLat);
+    this.watchLngLat(this.lngLat);
   }
 
   componentDidLoad() {
@@ -24,30 +23,22 @@ export class MaplibreMarker {
 
   /* STATE */
   @Watch("lngLat")
-  watchLngLat(newValue: LngLatLike | string, oldValue: LngLatLike | string | undefined){
-    (oldValue === undefined)
-      ? this.initLngLat(newValue)
-      : this.updateLngLat(newValue, oldValue);
-  }
-
-  /* RENDER */
-  render() {
-    return (
-      <Host></Host>
-    );
-  }
-
-  /* HELPERS */
-  initLngLat(newValue: LngLatLike | string){
+  watchLngLat(newValue: LngLatLike | string){
     const value = (typeof newValue === 'string')
       ? JSON.parse(newValue)
       : newValue;
     this._lngLat = value;
   }
 
-  updateLngLat(newValue: LngLatLike | string, oldValue: LngLatLike | string){
-    // TODO: Properly update object
-    throw new Error();
+  /* RENDER */
+  componentWillRender(){
+    this.instance.setLngLat(this._lngLat);
+  }
+
+  render() {
+    return (
+      <Host></Host>
+    );
   }
 
   /* DISCONNECT */
