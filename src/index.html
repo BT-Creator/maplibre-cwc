@@ -7,6 +7,13 @@
 
     <script type="module" src="/build/maplibre-cwc.esm.js"></script>
     <script nomodule src="/build/maplibre-cwc.js"></script>
+    <style>
+      maplibre-popup p{
+        color: red;
+        border: 2px black;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <maplibre-map>
@@ -14,6 +21,9 @@
       <maplibre-marker lng-lat="[12,0]"></maplibre-marker>
       <maplibre-popup lng-lat="[0,3]">
         <p>Test</p>
+      </maplibre-popup>
+      <maplibre-popup lng-lat="[12,3]">
+        <p>Testing a second one</p>
       </maplibre-popup>
     </maplibre-map>
   </body>

@@ -1,6 +1,6 @@
 @import '../../../node_modules/maplibre-gl/dist/maplibre-gl.css';
 
-:root {
+:host {
   /**
   @prop --map-width: The width of the map.
   */

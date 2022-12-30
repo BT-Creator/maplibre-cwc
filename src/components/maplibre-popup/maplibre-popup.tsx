@@ -2,7 +2,7 @@ import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
-@Component({tag: 'maplibre-popup', shadow: true, styleUrl: 'maplibre-popup.css'})
+@Component({tag: 'maplibre-popup', shadow: true})
 export class MaplibrePopup {
   // TODO: Maybe change this to a CSS variable?
   /**
@@ -61,7 +61,20 @@ export class MaplibrePopup {
   }
 
   componentDidRender(){
-    this._instance.setDOMContent(this.el.shadowRoot.host);
+    /**
+     * The're something very weird here:
+     * This will work, but the `setDOMContent` is a destructive method, where it will rip the node from the DOM and insert it into MapLibre's popup div.
+     * This will cause the component to lose all associated styling (Which we don't want)
+     *
+     * The solution that we actually want is to copy the content of this element and put it in there. The most ideal solution would be to:
+     * 1. Create a slot node
+     * 2. Create a reference to this component
+     * 3. Insert this as the DOMContent
+     * 4. Hide the original one
+     *
+     * But this also sound... stupid. So what now?
+     */
+    this._instance.setDOMContent(this.el);
   }
 
   /* DISCONNECT */
