@@ -11,13 +11,5 @@ async function render() {
 
   const element = await page.find('maplibre-marker');
   expect(element).toHaveClass('hydrated');
-}
-
-async function attributes() {
-  const page = await newE2EPage();
-  await page.setContent('<maplibre-marker lng-lat="[0,0]"></maplibre-marker>');
-
-  const element = await page.find('maplibre-marker');
-  expect(element).toHaveClass('hydrated');
   expect(element).toHaveAttribute('lng-lat');
 }

@@ -7,7 +7,27 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { LngLatLike } from "maplibre-gl";
 export namespace Components {
-    interface MaplibreBase {
+    interface MaplibreMap {
+        /**
+          * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
+         */
+        "hash": boolean | string;
+        /**
+          * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
+         */
+        "maxPitch": number;
+        /**
+          * The maximum zoom level of the map (0-24)
+         */
+        "maxZoom": number;
+        /**
+          * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
+         */
+        "minPitch": number;
+        /**
+          * The minimum zoom level of the map (0-24)
+         */
+        "minZoom": number;
     }
     interface MaplibreMarker {
         /**
@@ -23,11 +43,11 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLMaplibreBaseElement extends Components.MaplibreBase, HTMLStencilElement {
+    interface HTMLMaplibreMapElement extends Components.MaplibreMap, HTMLStencilElement {
     }
-    var HTMLMaplibreBaseElement: {
-        prototype: HTMLMaplibreBaseElement;
-        new (): HTMLMaplibreBaseElement;
+    var HTMLMaplibreMapElement: {
+        prototype: HTMLMaplibreMapElement;
+        new (): HTMLMaplibreMapElement;
     };
     interface HTMLMaplibreMarkerElement extends Components.MaplibreMarker, HTMLStencilElement {
     }
@@ -42,13 +62,33 @@ declare global {
         new (): HTMLMaplibrePopupElement;
     };
     interface HTMLElementTagNameMap {
-        "maplibre-base": HTMLMaplibreBaseElement;
+        "maplibre-map": HTMLMaplibreMapElement;
         "maplibre-marker": HTMLMaplibreMarkerElement;
         "maplibre-popup": HTMLMaplibrePopupElement;
     }
 }
 declare namespace LocalJSX {
-    interface MaplibreBase {
+    interface MaplibreMap {
+        /**
+          * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
+         */
+        "hash"?: boolean | string;
+        /**
+          * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
+         */
+        "maxPitch"?: number;
+        /**
+          * The maximum zoom level of the map (0-24)
+         */
+        "maxZoom"?: number;
+        /**
+          * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
+         */
+        "minPitch"?: number;
+        /**
+          * The minimum zoom level of the map (0-24)
+         */
+        "minZoom"?: number;
     }
     interface MaplibreMarker {
         /**
@@ -63,7 +103,7 @@ declare namespace LocalJSX {
         "lngLat": LngLatLike | string;
     }
     interface IntrinsicElements {
-        "maplibre-base": MaplibreBase;
+        "maplibre-map": MaplibreMap;
         "maplibre-marker": MaplibreMarker;
         "maplibre-popup": MaplibrePopup;
     }
@@ -72,7 +112,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "maplibre-base": LocalJSX.MaplibreBase & JSXBase.HTMLAttributes<HTMLMaplibreBaseElement>;
+            "maplibre-map": LocalJSX.MaplibreMap & JSXBase.HTMLAttributes<HTMLMaplibreMapElement>;
             "maplibre-marker": LocalJSX.MaplibreMarker & JSXBase.HTMLAttributes<HTMLMaplibreMarkerElement>;
             "maplibre-popup": LocalJSX.MaplibrePopup & JSXBase.HTMLAttributes<HTMLMaplibrePopupElement>;
         }
