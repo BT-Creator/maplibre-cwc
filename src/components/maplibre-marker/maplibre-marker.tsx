@@ -5,11 +5,21 @@ import state from '../../stores/maplibre';
 @Component({
   tag: 'maplibre-marker',
   shadow: true,
-})
+  })
 export class MaplibreMarker {
-  @Prop({reflect: true}) lngLat: LngLatLike | string;
+  /**
+   * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+   */
+  @Prop({reflect: true}) lngLat!: LngLatLike | string;
+
+  /**
+   * The internal state of the coordinates
+   */
   _lngLat: LngLatLike;
 
+  /**
+   * The Marker object
+   */
   instance: Marker = new Marker();
 
   /* LOAD */
@@ -18,7 +28,9 @@ export class MaplibreMarker {
   }
 
   componentDidLoad() {
-    state.markers = [this.instance, ...state.markers];
+    (state.instance === undefined)
+      ? state.initMarkers.push(this.instance)
+      : this.instance.addTo(state.instance);
   }
 
   /* STATE */
@@ -42,5 +54,7 @@ export class MaplibreMarker {
   }
 
   /* DISCONNECT */
-  // TODO: Properly disconnect marker & remove from state
+  disconnectedCallback(){
+    this.instance.remove();
+  }
 }

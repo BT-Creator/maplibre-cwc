@@ -10,6 +10,9 @@ export namespace Components {
     interface MaplibreBase {
     }
     interface MaplibreMarker {
+        /**
+          * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+         */
         "lngLat": LngLatLike | string;
     }
 }
@@ -35,7 +38,10 @@ declare namespace LocalJSX {
     interface MaplibreBase {
     }
     interface MaplibreMarker {
-        "lngLat"?: LngLatLike | string;
+        /**
+          * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+         */
+        "lngLat": LngLatLike | string;
     }
     interface IntrinsicElements {
         "maplibre-base": MaplibreBase;

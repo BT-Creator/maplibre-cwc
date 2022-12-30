@@ -3,16 +3,17 @@ import { Map, Marker } from 'maplibre-gl';
 
 declare type MapLibreState = {
   instance: Map | undefined,
-  markers: Array<Marker>
+  initMarkers: Array<Marker>
 }
 
 const { state, onChange } = createStore<MapLibreState>({
   instance: undefined,
-  markers: []
+  initMarkers: []
 });
 
 onChange('instance', (newValue) => {
-  state.markers.forEach(marker => marker.addTo(newValue));
+  state.initMarkers.forEach(marker => marker.addTo(newValue));
+  state.initMarkers = [];
 });
 
 
