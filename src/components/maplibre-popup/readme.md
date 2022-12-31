@@ -1,0 +1,19 @@
+# maplibre-popup
+
+
+
+<!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property              | Attribute | Description                                                                                                              | Type                                                                                                     | Default     |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- | ----------- |
+| `lngLat` _(required)_ | `lng-lat` | The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554]) | `LngLat \| [number, number] \| string \| { lng: number; lat: number; } \| { lon: number; lat: number; }` | `undefined` |
+| `text`                | `text`    | String value that will be display in the pop-up                                                                          | `string`                                                                                                 | `undefined` |
+| `width`               | `width`   | The width of the Maplibre popup itself. Accepts a CSSUnit as value.                                                      | `string`                                                                                                 | `'100%'`    |
+
+
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

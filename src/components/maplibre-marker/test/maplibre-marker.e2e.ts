@@ -2,7 +2,6 @@ import { newE2EPage } from '@stencil/core/testing';
 
 describe('maplibre-marker', () => {
   it('renders', render);
-  // it('has correct attributes', attributes);
 });
 
 async function render() {
