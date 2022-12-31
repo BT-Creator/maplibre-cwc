@@ -13,6 +13,11 @@ export class MaplibrePopup {
  * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
  */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
+  
+  /**
+   * String value that will be display in the pop-up
+   */
+  @Prop({reflect: true}) text: string;
 
   /**
    * The internal state of the coordinates
@@ -30,6 +35,7 @@ export class MaplibrePopup {
   componentWillLoad() {
     this.watchLngLat(this.lngLat);
     this._instance.setMaxWidth(this.width);
+    this._instance.setText(this.text);
   }
 
   componentDidLoad() {
@@ -58,23 +64,6 @@ export class MaplibrePopup {
         <slot></slot>
       </Host>
     );
-  }
-
-  componentDidRender(){
-    /**
-     * The're something very weird here:
-     * This will work, but the `setDOMContent` is a destructive method, where it will rip the node from the DOM and insert it into MapLibre's popup div.
-     * This will cause the component to lose all associated styling (Which we don't want)
-     *
-     * The solution that we actually want is to copy the content of this element and put it in there. The most ideal solution would be to:
-     * 1. Create a slot node
-     * 2. Create a reference to this component
-     * 3. Insert this as the DOMContent
-     * 4. Hide the original one
-     *
-     * But this also sound... stupid. So what now?
-     */
-    this._instance.setDOMContent(this.el);
   }
 
   /* DISCONNECT */

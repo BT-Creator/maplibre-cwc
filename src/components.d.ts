@@ -41,6 +41,10 @@ export namespace Components {
          */
         "lngLat": LngLatLike | string;
         /**
+          * String value that will be display in the pop-up
+         */
+        "text": string;
+        /**
           * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
          */
         "width": string;
@@ -105,6 +109,10 @@ declare namespace LocalJSX {
           * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
          */
         "lngLat": LngLatLike | string;
+        /**
+          * String value that will be display in the pop-up
+         */
+        "text"?: string;
         /**
           * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
          */
