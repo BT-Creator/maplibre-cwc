@@ -7,11 +7,20 @@
 
     <script type="module" src="/build/maplibre-cwc.esm.js"></script>
     <script nomodule src="/build/maplibre-cwc.js"></script>
+    <style>
+      maplibre-popup p{
+        color: red;
+        border: 2px black;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
-    <maplibre-base>
+    <maplibre-map>
       <maplibre-marker lng-lat="[0,0]"></maplibre-marker>
       <maplibre-marker lng-lat="[12,0]"></maplibre-marker>
-    </maplibre-base>
+      <maplibre-popup lng-lat="[0,3]" text="First popup"></maplibre-popup>
+      <maplibre-popup lng-lat="[12,3]" text="Second popup"></maplibre-popup>
+    </maplibre-map>
   </body>
 </html>
