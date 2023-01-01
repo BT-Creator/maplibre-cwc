@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
+import { Component, h, Host, Prop, Watch, Element } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
@@ -9,15 +9,21 @@ export class MaplibrePopup {
    * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
    */
   @Prop() width = '100%'
+
   /**
- * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
- */
+   * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
+   */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
 
   /**
    * String value that will be display in the pop-up
    */
   @Prop({reflect: true}) text?: string;
+
+  /**
+   * Internal ID of popup
+   */
+  _id: number;
 
   /**
    * The popup instance
@@ -28,15 +34,22 @@ export class MaplibrePopup {
 
   /* LOAD */
   componentWillLoad() {
+    this._id = state.nextLayerId;
     this.watchLngLat(this.lngLat);
     this._instance.setMaxWidth(this.width);
     if (this.text) this._instance.setText(this.text);
+    else {
+      const wrapper = document.createElement('slot');
+      wrapper.setAttribute('name', `maplibre-cwc-popup-${this._id}-content`);
+      this._instance.setDOMContent(wrapper);
+    }
   }
 
   componentDidLoad() {
     (state.instance === undefined)
       ? state.initLayers.push(this._instance)
       : this._instance.addTo(state.instance);
+    state.nextLayerId++;
   }
 
   /* STATE */
@@ -51,13 +64,10 @@ export class MaplibrePopup {
   }
 
   /* RENDER */
-
   render() {
-    return (
-      <Host>
-        <slot></slot>
-      </Host>
-    );
+    return (!this.text)
+      ? (<Host slot={`maplibre-cwc-popup-${this._id}-content`}><slot></slot></Host>)
+      : undefined;
   }
 
   /* DISCONNECT */
