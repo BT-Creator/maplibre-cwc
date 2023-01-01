@@ -2,7 +2,7 @@ import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
-@Component({tag: 'maplibre-popup', shadow: true})
+@Component({tag: 'maplibre-popup'})
 export class MaplibrePopup {
   // TODO: Maybe change this to a CSS variable?
   /**
@@ -13,16 +13,11 @@ export class MaplibrePopup {
  * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
  */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
-  
+
   /**
    * String value that will be display in the pop-up
    */
-  @Prop({reflect: true}) text: string;
-
-  /**
-   * The internal state of the coordinates
-   */
-  _lngLat: LngLatLike;
+  @Prop({reflect: true}) text?: string;
 
   /**
    * The popup instance
@@ -35,7 +30,7 @@ export class MaplibrePopup {
   componentWillLoad() {
     this.watchLngLat(this.lngLat);
     this._instance.setMaxWidth(this.width);
-    this._instance.setText(this.text);
+    if (this.text) this._instance.setText(this.text);
   }
 
   componentDidLoad() {
@@ -46,17 +41,16 @@ export class MaplibrePopup {
 
   /* STATE */
   @Watch("lngLat")
-  watchLngLat(newValue: LngLatLike | string){
-    const value = (typeof newValue === 'string')
-      ? JSON.parse(newValue)
-      : newValue;
-    this._lngLat = value;
+  watchLngLat(newValue: LngLatLike | string | null){
+    if(newValue !== null){
+      const value = (typeof newValue === 'string')
+        ? JSON.parse(newValue)
+        : newValue;
+      this._instance.setLngLat(value);
+    }
   }
 
   /* RENDER */
-  componentWillRender(){
-    this._instance.setLngLat(this._lngLat);
-  }
 
   render() {
     return (

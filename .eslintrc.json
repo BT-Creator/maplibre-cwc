@@ -35,6 +35,9 @@
         "semi": [
             "error",
             "always"
+        ],
+        "@stencil/strict-boolean-conditions": [
+          "off"
         ]
     }
 }
