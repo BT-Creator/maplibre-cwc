@@ -9,6 +9,10 @@ import { LngLatLike } from "maplibre-gl";
 export namespace Components {
     interface MaplibreMap {
         /**
+          * Allows the user to open the map in fullscreen mode
+         */
+        "allowFullscreen": boolean;
+        /**
           * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
          */
         "hash": boolean | string;
@@ -77,6 +81,10 @@ declare global {
 }
 declare namespace LocalJSX {
     interface MaplibreMap {
+        /**
+          * Allows the user to open the map in fullscreen mode
+         */
+        "allowFullscreen"?: boolean;
         /**
           * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
          */

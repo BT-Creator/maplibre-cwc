@@ -1,5 +1,5 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
-import { Map } from 'maplibre-gl';
+import { FullscreenControl, Map } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
 @Component({
@@ -8,32 +8,23 @@ import state from '../../stores/maplibre';
   shadow: true,
   })
 export class MaplibreMap {
-
-  @Element() el: HTMLElement;
-
-  /**
-   * The minimum zoom level of the map (0-24)
-   */
+  /** The minimum zoom level of the map (0-24) */
   @Prop()
   minZoom = 0;
-
-  /**
-   * The maximum zoom level of the map (0-24)
-   */
+  /** The maximum zoom level of the map (0-24) */
   @Prop()
   maxZoom = 22;
 
-  /**
-   * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-   */
+  /** The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues. */
   @Prop()
   minPitch = 0;
-
-  /**
-   * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-   */
+  /** The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.*/
   @Prop()
   maxPitch = 60;
+
+  /** Allows the user to open the map in fullscreen mode */
+  @Prop()
+  allowFullscreen = false;
 
   /**
    * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
@@ -42,6 +33,7 @@ export class MaplibreMap {
   @Prop()
   hash: boolean | string = false;
 
+  @Element() el: HTMLElement;
 
   /* LOAD */
   componentDidLoad() {
@@ -57,6 +49,7 @@ export class MaplibreMap {
       maxPitch: this.maxPitch,
       hash: this.hash
     });
+    if(this.allowFullscreen) state.instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
   }
 
   /* RENDER */
