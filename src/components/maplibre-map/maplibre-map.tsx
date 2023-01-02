@@ -1,6 +1,7 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core';
-import { FullscreenControl, Map } from 'maplibre-gl';
-import state from '../../stores/maplibre';
+import { Component, Host, h, Element, Prop, Listen } from '@stencil/core';
+import { ObservableMap } from '@stencil/store';
+import { FullscreenControl, Map, Marker } from 'maplibre-gl';
+import { initStore, MapLibreState } from '../../stores/maplibre';
 
 @Component({
   tag: 'maplibre-map',
@@ -33,11 +34,13 @@ export class MaplibreMap {
   @Prop()
   hash: boolean | string = false;
 
+  _store: ObservableMap<MapLibreState> = initStore();
+
   @Element() el: HTMLElement;
 
   /* LOAD */
   componentDidLoad() {
-    state.instance = new Map({
+    this._store.state.instance = new Map({
       container: this.el.shadowRoot.getElementById('map-instance-element'),
       style: 'https://demotiles.maplibre.org/style.json',
       center: [-74.5, 40],
@@ -49,7 +52,13 @@ export class MaplibreMap {
       maxPitch: this.maxPitch,
       hash: this.hash
     });
-    if(this.allowFullscreen) state.instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
+    if(this.allowFullscreen) this._store.state.instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
+  }
+
+  /* EVENTS */
+  @Listen('layerCreated')
+  listenForLayerCreation(e: CustomEvent<Marker>){
+    this._store.state.initLayers = [e.detail, ...this._store.state.initLayers];
   }
 
   /* RENDER */
@@ -64,6 +73,7 @@ export class MaplibreMap {
 
   /* DISCONNECT */
   disconnectedCallback(){
-    state.instance.remove();
+    this._store.state.instance.remove();
+    this._store.reset();
   }
 }

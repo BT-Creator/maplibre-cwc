@@ -14,6 +14,13 @@
 | `width`               | `width`   | The width of the Maplibre popup itself. Accepts a CSSUnit as value.                                                      | `string`                                                                                                 | `'100%'`    |
 
 
+## Events
+
+| Event          | Description                                    | Type                 |
+| -------------- | ---------------------------------------------- | -------------------- |
+| `layerCreated` | Fires an event that the layer has been created | `CustomEvent<Popup>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

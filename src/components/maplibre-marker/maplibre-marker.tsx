@@ -1,6 +1,5 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 import { LngLatLike, Marker } from 'maplibre-gl';
-import state from '../../stores/maplibre';
 
 @Component({tag: 'maplibre-marker'})
 export class MaplibreMarker {
@@ -8,6 +7,11 @@ export class MaplibreMarker {
    * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
    */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
+
+  /**
+   * Fires an event that the layer has been created
+   */
+  @Event({bubbles: true, composed: true}) layerCreated: EventEmitter<Marker>
 
   /**
    * The Marker object
@@ -20,9 +24,7 @@ export class MaplibreMarker {
   }
 
   componentDidLoad() {
-    (state.instance === undefined)
-      ? state.initLayers.push(this._instance)
-      : this._instance.addTo(state.instance);
+    this.layerCreated.emit(this._instance);
   }
 
   /* STATE */
