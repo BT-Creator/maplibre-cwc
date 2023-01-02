@@ -43,7 +43,7 @@ export namespace Components {
         /**
           * String value that will be display in the pop-up
          */
-        "text": string;
+        "text"?: string;
         /**
           * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
          */
