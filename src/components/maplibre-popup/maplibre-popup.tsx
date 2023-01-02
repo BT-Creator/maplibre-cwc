@@ -39,6 +39,7 @@ export class MaplibrePopup {
     this._instance.setMaxWidth(this.width);
     if (this.text) this._instance.setText(this.text);
     else {
+      // We'll pass a slot reference to the map, so that it will position it there, BUT render it in the light DOM!
       const wrapper = document.createElement('slot');
       wrapper.setAttribute('name', `maplibre-cwc-popup-${this._id}-content`);
       this._instance.setDOMContent(wrapper);

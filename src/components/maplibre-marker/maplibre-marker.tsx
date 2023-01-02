@@ -1,4 +1,4 @@
-import { Component, Prop, State, Watch } from '@stencil/core';
+import { Component, Prop, Watch } from '@stencil/core';
 import { LngLatLike, Marker } from 'maplibre-gl';
 import state from '../../stores/maplibre';
 
