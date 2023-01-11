@@ -1,6 +1,7 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core';
-import { Map } from 'maplibre-gl';
-import state from '../../stores/maplibre';
+import { Component, Host, h, Element, Prop, Listen } from '@stencil/core';
+import { ObservableMap } from '@stencil/store';
+import { FullscreenControl, Map, Marker } from 'maplibre-gl';
+import { initStore, MapLibreState } from '../../stores/maplibre';
 
 @Component({
   tag: 'maplibre-map',
@@ -8,32 +9,23 @@ import state from '../../stores/maplibre';
   shadow: true,
   })
 export class MaplibreMap {
-
-  @Element() el: HTMLElement;
-
-  /**
-   * The minimum zoom level of the map (0-24)
-   */
+  /** The minimum zoom level of the map (0-24) */
   @Prop()
   minZoom = 0;
-
-  /**
-   * The maximum zoom level of the map (0-24)
-   */
+  /** The maximum zoom level of the map (0-24) */
   @Prop()
   maxZoom = 22;
 
-  /**
-   * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-   */
+  /** The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues. */
   @Prop()
   minPitch = 0;
-
-  /**
-   * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-   */
+  /** The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.*/
   @Prop()
   maxPitch = 60;
+
+  /** Allows the user to open the map in fullscreen mode */
+  @Prop()
+  allowFullscreen = false;
 
   /**
    * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL.
@@ -42,10 +34,13 @@ export class MaplibreMap {
   @Prop()
   hash: boolean | string = false;
 
+  _store: ObservableMap<MapLibreState> = initStore();
+
+  @Element() el: HTMLElement;
 
   /* LOAD */
   componentDidLoad() {
-    state.instance = new Map({
+    this._store.state.instance = new Map({
       container: this.el.shadowRoot.getElementById('map-instance-element'),
       style: 'https://demotiles.maplibre.org/style.json',
       center: [-74.5, 40],
@@ -57,6 +52,13 @@ export class MaplibreMap {
       maxPitch: this.maxPitch,
       hash: this.hash
     });
+    if(this.allowFullscreen) this._store.state.instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
+  }
+
+  /* EVENTS */
+  @Listen('layerCreated')
+  listenForLayerCreation(e: CustomEvent<Marker>){
+    this._store.state.initLayers = [e.detail, ...this._store.state.initLayers];
   }
 
   /* RENDER */
@@ -71,6 +73,7 @@ export class MaplibreMap {
 
   /* DISCONNECT */
   disconnectedCallback(){
-    state.instance.remove();
+    this._store.state.instance.remove();
+    this._store.reset();
   }
 }

@@ -1,6 +1,5 @@
-import { Component, h, Host, Prop, Watch, Element } from '@stencil/core';
+import { Component, h, Host, Prop, Watch, Element, EventEmitter, Event } from '@stencil/core';
 import { LngLatLike, Popup } from 'maplibre-gl';
-import state from '../../stores/maplibre';
 
 @Component({tag: 'maplibre-popup'})
 export class MaplibrePopup {
@@ -21,9 +20,14 @@ export class MaplibrePopup {
   @Prop({reflect: true}) text?: string;
 
   /**
+   * Fires an event that the layer has been created
+   */
+  @Event({bubbles: true, composed: true}) layerCreated: EventEmitter<Popup>
+
+  /**
    * Internal ID of popup
    */
-  _id: number;
+  _id: string = crypto.randomUUID();
 
   /**
    * The popup instance
@@ -34,7 +38,6 @@ export class MaplibrePopup {
 
   /* LOAD */
   componentWillLoad() {
-    this._id = state.nextLayerId;
     this.watchLngLat(this.lngLat);
     this._instance.setMaxWidth(this.width);
     if (this.text) this._instance.setText(this.text);
@@ -47,10 +50,7 @@ export class MaplibrePopup {
   }
 
   componentDidLoad() {
-    (state.instance === undefined)
-      ? state.initLayers.push(this._instance)
-      : this._instance.addTo(state.instance);
-    state.nextLayerId++;
+    this.layerCreated.emit(this._instance);
   }
 
   /* STATE */
