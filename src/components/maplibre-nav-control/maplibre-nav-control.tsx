@@ -4,7 +4,7 @@ import { ControlObject } from '../../types/events';
 
 @Component({tag: 'maplibre-nav-control'})
 export class MaplibreNavControl {
-  @Prop({reflect: true}) compass = false;
+  @Prop({reflect: true, mutable: true}) compass = false;
   @Prop({reflect: true}) zoom = false;
   @Prop({reflect: true}) pitch = false;
   @Prop({reflect: true}) position: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right' = 'top-right';
@@ -13,6 +13,9 @@ export class MaplibreNavControl {
   _instance: IControl;
 
   componentWillLoad() {
+    if(this.pitch){
+      this.compass = true;
+    }
     this._instance = new NavigationControl({showCompass: this.compass, showZoom: this.zoom, visualizePitch: this.pitch,});
   }
 

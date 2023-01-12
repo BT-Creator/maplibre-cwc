@@ -1,5 +1,5 @@
 import { createStore, ObservableMap } from '@stencil/store';
-import { IControl, Map, Marker, Popup } from 'maplibre-gl';
+import { Map, Marker, Popup } from 'maplibre-gl';
 import { ControlObject } from '../types/events';
 
 export declare type MapLibreState = {
