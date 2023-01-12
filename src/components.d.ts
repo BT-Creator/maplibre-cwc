@@ -41,9 +41,21 @@ export namespace Components {
         "lngLat": LngLatLike | string;
     }
     interface MaplibreNavControl {
+        /**
+          * Enables the compass control
+         */
         "compass": boolean;
+        /**
+          * Enables the pitch control (and zoom control, if not enabled)
+         */
         "pitch": boolean;
+        /**
+          * The position of the control
+         */
         "position": 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right';
+        /**
+          * Enables the zoom control
+         */
         "zoom": boolean;
     }
     interface MaplibrePopup {
@@ -143,10 +155,25 @@ declare namespace LocalJSX {
         "onLayerCreated"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
     }
     interface MaplibreNavControl {
+        /**
+          * Enables the compass control
+         */
         "compass"?: boolean;
+        /**
+          * Fires an event that the control has been created
+         */
         "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlObject>) => void;
+        /**
+          * Enables the pitch control (and zoom control, if not enabled)
+         */
         "pitch"?: boolean;
+        /**
+          * The position of the control
+         */
         "position"?: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right';
+        /**
+          * Enables the zoom control
+         */
         "zoom"?: boolean;
     }
     interface MaplibrePopup {
