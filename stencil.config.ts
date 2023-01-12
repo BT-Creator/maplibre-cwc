@@ -24,6 +24,6 @@ export const config: Config = {
     {
       type: 'docs-vscode',
       file: 'vscode-data.json',
-    }
+    },
   ],
 };
