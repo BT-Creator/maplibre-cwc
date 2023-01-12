@@ -1,6 +1,7 @@
 # maplibre-nav-control
 
 Some special behavior to note:
+
 - If the `pitch` attribute is set to true, the compass will automatically be set to true *(As this is needed in order to visualize the pitch)*
 
 <!-- Auto Generated Below -->

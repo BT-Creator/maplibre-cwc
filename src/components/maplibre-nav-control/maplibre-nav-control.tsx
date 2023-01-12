@@ -39,4 +39,9 @@ export class MaplibreNavControl {
     this._instance = new NavigationControl({showCompass: this.compass, showZoom: this.zoom, visualizePitch: this.pitch});
     map.addControl(this._instance, this.position);
   }
+
+  /* DISCONNECT */
+  disconnectedCallback(){
+    this._instance._map.removeControl(this._instance);
+  }
 }
