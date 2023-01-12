@@ -2,6 +2,7 @@ import { Component, Host, h, Element, Prop, Listen } from '@stencil/core';
 import { ObservableMap } from '@stencil/store';
 import { FullscreenControl, Map, Marker } from 'maplibre-gl';
 import { initStore, MapLibreState } from '../../stores/maplibre';
+import { ControlObject } from '../../types/events';
 
 @Component({
   tag: 'maplibre-map',
@@ -59,6 +60,11 @@ export class MaplibreMap {
   @Listen('layerCreated')
   listenForLayerCreation(e: CustomEvent<Marker>){
     this._store.state.initLayers = [e.detail, ...this._store.state.initLayers];
+  }
+
+  @Listen('controlCreated')
+  listenForControlCreation(e: CustomEvent<ControlObject>){
+    this._store.state.initControls = [e.detail, ...this._store.state.initControls];
   }
 
   /* RENDER */

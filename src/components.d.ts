@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { LngLatLike, Marker, Popup } from "maplibre-gl";
+import { ControlObject } from "./types/events";
 export namespace Components {
     interface MaplibreMap {
         /**
@@ -39,6 +40,12 @@ export namespace Components {
          */
         "lngLat": LngLatLike | string;
     }
+    interface MaplibreNavControl {
+        "compass": boolean;
+        "pitch": boolean;
+        "position": 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right';
+        "zoom": boolean;
+    }
     interface MaplibrePopup {
         /**
           * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
@@ -58,6 +65,10 @@ export interface MaplibreMarkerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMaplibreMarkerElement;
 }
+export interface MaplibreNavControlCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMaplibreNavControlElement;
+}
 export interface MaplibrePopupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMaplibrePopupElement;
@@ -75,6 +86,12 @@ declare global {
         prototype: HTMLMaplibreMarkerElement;
         new (): HTMLMaplibreMarkerElement;
     };
+    interface HTMLMaplibreNavControlElement extends Components.MaplibreNavControl, HTMLStencilElement {
+    }
+    var HTMLMaplibreNavControlElement: {
+        prototype: HTMLMaplibreNavControlElement;
+        new (): HTMLMaplibreNavControlElement;
+    };
     interface HTMLMaplibrePopupElement extends Components.MaplibrePopup, HTMLStencilElement {
     }
     var HTMLMaplibrePopupElement: {
@@ -84,6 +101,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "maplibre-map": HTMLMaplibreMapElement;
         "maplibre-marker": HTMLMaplibreMarkerElement;
+        "maplibre-nav-control": HTMLMaplibreNavControlElement;
         "maplibre-popup": HTMLMaplibrePopupElement;
     }
 }
@@ -124,6 +142,13 @@ declare namespace LocalJSX {
          */
         "onLayerCreated"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
     }
+    interface MaplibreNavControl {
+        "compass"?: boolean;
+        "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlObject>) => void;
+        "pitch"?: boolean;
+        "position"?: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right';
+        "zoom"?: boolean;
+    }
     interface MaplibrePopup {
         /**
           * The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
@@ -145,6 +170,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;
         "maplibre-marker": MaplibreMarker;
+        "maplibre-nav-control": MaplibreNavControl;
         "maplibre-popup": MaplibrePopup;
     }
 }
@@ -154,6 +180,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "maplibre-map": LocalJSX.MaplibreMap & JSXBase.HTMLAttributes<HTMLMaplibreMapElement>;
             "maplibre-marker": LocalJSX.MaplibreMarker & JSXBase.HTMLAttributes<HTMLMaplibreMarkerElement>;
+            "maplibre-nav-control": LocalJSX.MaplibreNavControl & JSXBase.HTMLAttributes<HTMLMaplibreNavControlElement>;
             "maplibre-popup": LocalJSX.MaplibrePopup & JSXBase.HTMLAttributes<HTMLMaplibrePopupElement>;
         }
     }
