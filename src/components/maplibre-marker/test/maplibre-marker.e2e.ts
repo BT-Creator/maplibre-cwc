@@ -5,10 +5,32 @@ describe('maplibre-marker', () => {
 });
 
 async function render() {
-  const page = await newE2EPage();
-  await page.setContent('<maplibre-map><maplibre-marker lng-lat="[0,0]"></maplibre-marker></maplibre-map>');
+  // Generate page
+  const page = await newE2EPage({html: '<maplibre-map><maplibre-marker lng-lat="[0,0]"></maplibre-marker></maplibre-map>'});
 
-  const element = await page.find('maplibre-marker');
-  expect(element).toHaveClass('hydrated');
-  expect(element).toHaveAttribute('lng-lat');
+  // Get initial elements
+  let marker = await page.find('maplibre-marker');
+  let map = await page.find('maplibre-map');
+  let shadowMarker = map.shadowRoot.querySelector('.maplibregl-marker');
+  const initStyle = marker.getAttribute('style');
+
+  // Check if the marker is loaded correctly
+  expect(marker).toHaveClass('hydrated');
+  expect(marker).toHaveAttribute('lng-lat');
+
+  // Check if the marker is loaded & added into maplibre-map's shadow root
+  expect(shadowMarker).toBeDefined();
+
+  // Update lng-lat prop
+  marker.setAttribute('lng-lat', '[12,12]');
+  await page.waitForChanges();
+
+  // Refresh elements
+  marker = await page.find('maplibre-marker');
+  map = await page.find('maplibre-map');
+  shadowMarker = map.shadowRoot.querySelector('.maplibregl-marker');
+
+  // Check if the marker is updated when prop is changed
+  expect(marker.getAttribute('lng-lat')).toBe('[12,12]');
+  expect(shadowMarker.getAttribute('style')).not.toBe(initStyle);
 }
