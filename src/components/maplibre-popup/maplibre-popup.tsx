@@ -64,6 +64,8 @@ export class MaplibrePopup {
     }
   }
 
+  // TODO: Trigger reset whenever the text attribute is updated
+
   /* RENDER */
   render() {
     return (!this.text)
