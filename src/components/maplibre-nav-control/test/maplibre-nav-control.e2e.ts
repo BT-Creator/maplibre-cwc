@@ -6,12 +6,51 @@ describe('maplibre-nav-control', () => {
   let navEl: E2EElement;
 
   beforeEach(async () => {
-    page = await newE2EPage({html: '<maplibre-map><maplibre-nav-control compass="true" zoom="true"></maplibre-nav-control></maplibre-map>'});
+    page = await newE2EPage({html: '<maplibre-map><maplibre-nav-control></maplibre-nav-control></maplibre-map>'});
     mapEl = await page.find('maplibre-map');
     navEl = await page.find('maplibre-nav-control');
   });
 
-  it('renders', async () => {
+  it('renders webcomponent', async () => {
     expect(navEl).toHaveClass('hydrated');
+  });
+
+  it('renders on map', async () => {
+    // Checks if it renders on the default position, "top-right"
+    const buttonGroup = mapEl.shadowRoot.querySelector('.maplibregl-ctrl-group');
+    expect(buttonGroup).toBeDefined();
+    expect(buttonGroup.childElementCount).toBe(0);
+    expect(buttonGroup.parentElement.className).toContain('maplibregl-ctrl-top-right mapboxgl-ctrl-top-right');
+  });
+
+  it('add controls post-creation', async () => {
+    // Set attributes
+    navEl.toggleAttribute('zoom');
+    navEl.toggleAttribute('pitch');
+    navEl.setAttribute('position', 'bottom-left');
+    await page.waitForChanges();
+
+    // Check if attributes are set in Web component
+    // TODO: This doesn't work atm, refactor later
+    /* navEl = await page.find('maplibre-nav-control');
+    expect(navEl.getAttribute('zoom')).toEqual('true');
+    expect(navEl.getAttribute('compass')).toEqual('true');
+    expect(navEl.getAttribute('pitch')).toEqual('true');
+    expect(navEl.getAttribute('position')).toEqual('bottom-left'); */
+
+    // Checks if it renders in Shadow Root
+    const buttonGroup = mapEl.shadowRoot.querySelector('.maplibregl-ctrl-group');
+    expect(buttonGroup).toBeDefined();
+    expect(buttonGroup.parentElement.className).toContain('maplibregl-ctrl-bottom-left mapboxgl-ctrl-bottom-left');
+    expect(buttonGroup.childElementCount).toEqual(3);
+  });
+
+  it('detaches properly', async () => {
+    await page.$eval('maplibre-nav-control', (el) => el.remove());
+    await page.waitForChanges();
+
+    // Re-acquire shadow DOM
+    const buttonGroup = await page.find('maplibre-map >>> .maplibregl-ctrl-group');
+    expect(buttonGroup).toBeFalsy();
   });
 });

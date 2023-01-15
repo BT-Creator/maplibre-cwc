@@ -26,7 +26,7 @@ export namespace Components {
          */
         "compass": boolean;
         /**
-          * Enables the pitch control (and zoom control, if not enabled)
+          * Enables the pitch control (and compass control, if not enabled)
          */
         "pitch": boolean;
         /**
@@ -124,7 +124,7 @@ declare namespace LocalJSX {
          */
         "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlObject>) => void;
         /**
-          * Enables the pitch control (and zoom control, if not enabled)
+          * Enables the pitch control (and compass control, if not enabled)
          */
         "pitch"?: boolean;
         /**

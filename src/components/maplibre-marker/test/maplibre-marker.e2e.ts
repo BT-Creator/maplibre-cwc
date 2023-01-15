@@ -15,12 +15,13 @@ describe('maplibre-marker', () => {
     map = await page.find('maplibre-map');
   });
 
-  it('renders', async () => {
+  it('renders webcomponent', async () => {
     // Check if the marker is loaded correctly
     expect(marker).toHaveClass('hydrated');
     expect(marker).toHaveAttribute('lng-lat');
+  });
 
-    // Check if the marker is loaded & added into maplibre-map's shadow root
+  it('renders on map', async () => {
     expect(markerShadow).toBeDefined();
   });
 
