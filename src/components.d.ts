@@ -44,13 +44,9 @@ export namespace Components {
          */
         "lngLat": LngLatLike | string;
         /**
-          * String value that will be display in the pop-up
+          * The max  width of the Maplibre popup itself. Accepts a CSSUnit as value.
          */
-        "text"?: string;
-        /**
-          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
-         */
-        "width": string;
+        "maxWidth": string;
     }
 }
 export interface MaplibreMarkerCustomEvent<T> extends CustomEvent<T> {
@@ -142,17 +138,13 @@ declare namespace LocalJSX {
          */
         "lngLat": LngLatLike | string;
         /**
+          * The max  width of the Maplibre popup itself. Accepts a CSSUnit as value.
+         */
+        "maxWidth"?: string;
+        /**
           * Fires an event that the layer has been created
          */
         "onLayerCreated"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
-        /**
-          * String value that will be display in the pop-up
-         */
-        "text"?: string;
-        /**
-          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
-         */
-        "width"?: string;
     }
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;
