@@ -13,26 +13,6 @@ export namespace Components {
           * Allows the user to open the map in fullscreen mode
          */
         "allowFullscreen": boolean;
-        /**
-          * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
-         */
-        "hash": boolean | string;
-        /**
-          * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-         */
-        "maxPitch": number;
-        /**
-          * The maximum zoom level of the map (0-24)
-         */
-        "maxZoom": number;
-        /**
-          * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-         */
-        "minPitch": number;
-        /**
-          * The minimum zoom level of the map (0-24)
-         */
-        "minZoom": number;
     }
     interface MaplibreMarker {
         /**
@@ -46,7 +26,7 @@ export namespace Components {
          */
         "compass": boolean;
         /**
-          * Enables the pitch control (and zoom control, if not enabled)
+          * Enables the pitch control (and compass control, if not enabled)
          */
         "pitch": boolean;
         /**
@@ -64,13 +44,9 @@ export namespace Components {
          */
         "lngLat": LngLatLike | string;
         /**
-          * String value that will be display in the pop-up
+          * The max  width of the Maplibre popup itself. Accepts a CSSUnit as value.
          */
-        "text"?: string;
-        /**
-          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
-         */
-        "width": string;
+        "maxWidth": string;
     }
 }
 export interface MaplibreMarkerCustomEvent<T> extends CustomEvent<T> {
@@ -123,26 +99,6 @@ declare namespace LocalJSX {
           * Allows the user to open the map in fullscreen mode
          */
         "allowFullscreen"?: boolean;
-        /**
-          * If true, the map's position (zoom, center latitude, center longitude, bearing, and pitch) will be synced with the hash fragment of the page's URL. An additional string may optionally be provided to indicate a parameter-styled hash, *e.g. http://path/to/my/page.html#map=2.59/39.26/53.07/-24.1/60&foo=bar* , where foo is a custom parameter and bar is an arbitrary hash distinct from the map hash.
-         */
-        "hash"?: boolean | string;
-        /**
-          * The maximum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-         */
-        "maxPitch"?: number;
-        /**
-          * The maximum zoom level of the map (0-24)
-         */
-        "maxZoom"?: number;
-        /**
-          * The minimum pitch of the map (0-85). Values greater than 60 degrees are experimental and may result in rendering issues.
-         */
-        "minPitch"?: number;
-        /**
-          * The minimum zoom level of the map (0-24)
-         */
-        "minZoom"?: number;
     }
     interface MaplibreMarker {
         /**
@@ -164,7 +120,7 @@ declare namespace LocalJSX {
          */
         "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlObject>) => void;
         /**
-          * Enables the pitch control (and zoom control, if not enabled)
+          * Enables the pitch control (and compass control, if not enabled)
          */
         "pitch"?: boolean;
         /**
@@ -182,17 +138,13 @@ declare namespace LocalJSX {
          */
         "lngLat": LngLatLike | string;
         /**
+          * The max  width of the Maplibre popup itself. Accepts a CSSUnit as value.
+         */
+        "maxWidth"?: string;
+        /**
           * Fires an event that the layer has been created
          */
         "onLayerCreated"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
-        /**
-          * String value that will be display in the pop-up
-         */
-        "text"?: string;
-        /**
-          * The width of the Maplibre popup itself. Accepts a CSSUnit as value.
-         */
-        "width"?: string;
     }
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;

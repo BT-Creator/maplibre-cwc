@@ -2,3 +2,4 @@ dist
 loader
 www
 stencil.config.ts
+dockerfile

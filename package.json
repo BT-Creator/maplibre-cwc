@@ -22,7 +22,8 @@
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test:spec": "stencil test --spec",
+    "test:watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
     "lint": "eslint src/**/*{.ts,.tsx}",
     "lint:fix": "eslint --fix src/**/*{.ts,.tsx}"
@@ -44,7 +45,7 @@
     "eslint-plugin-react": "^7.0.0",
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
-    "puppeteer": "^10.4.0",
+    "puppeteer": "^18.2.1",
     "typescript": "*"
   },
   "license": "MIT"

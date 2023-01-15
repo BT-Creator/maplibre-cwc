@@ -8,7 +8,7 @@ export class MaplibreNavControl {
   @Prop({reflect: true, mutable: true}) compass = false;
   /** Enables the zoom control */
   @Prop({reflect: true}) zoom = false;
-  /** Enables the pitch control (and zoom control, if not enabled) */
+  /** Enables the pitch control (and compass control, if not enabled) */
   @Prop({reflect: true}) pitch = false;
   /** The position of the control */
   @Prop({reflect: true}) position: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right' = 'top-right';

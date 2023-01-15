@@ -9,12 +9,12 @@ Some special behavior to note:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                  | Type                                                           | Default       |
-| ---------- | ---------- | ------------------------------------------------------------ | -------------------------------------------------------------- | ------------- |
-| `compass`  | `compass`  | Enables the compass control                                  | `boolean`                                                      | `false`       |
-| `pitch`    | `pitch`    | Enables the pitch control (and zoom control, if not enabled) | `boolean`                                                      | `false`       |
-| `position` | `position` | The position of the control                                  | `"bottom-left" \| "bottom-right" \| "top-left" \| "top-right"` | `'top-right'` |
-| `zoom`     | `zoom`     | Enables the zoom control                                     | `boolean`                                                      | `false`       |
+| Property   | Attribute  | Description                                                     | Type                                                           | Default       |
+| ---------- | ---------- | --------------------------------------------------------------- | -------------------------------------------------------------- | ------------- |
+| `compass`  | `compass`  | Enables the compass control                                     | `boolean`                                                      | `false`       |
+| `pitch`    | `pitch`    | Enables the pitch control (and compass control, if not enabled) | `boolean`                                                      | `false`       |
+| `position` | `position` | The position of the control                                     | `"bottom-left" \| "bottom-right" \| "top-left" \| "top-right"` | `'top-right'` |
+| `zoom`     | `zoom`     | Enables the zoom control                                        | `boolean`                                                      | `false`       |
 
 
 ## Events
