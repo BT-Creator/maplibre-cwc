@@ -1,10 +1,10 @@
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('maplibre-map', () => {
-  it('renders', renderComponent);
+  it('renders', render);
 });
 
-async function renderComponent(){
+async function render(){
   const page = await newE2EPage({html:'<maplibre-map></maplibre-map>'});
 
   const element = await page.find('maplibre-map');
