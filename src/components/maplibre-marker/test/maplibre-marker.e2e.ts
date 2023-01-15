@@ -25,6 +25,16 @@ describe('maplibre-marker', () => {
     expect(markerShadow).toBeDefined();
   });
 
+  /*
+  TODO: Fix this test when implementing other events
+  it('sends out \'layerCreated\' event', async () => {
+    const emptyPage = await newE2EPage();
+    const spy = await emptyPage.spyOnEvent('layerCreated', 'document');
+    await emptyPage.setContent('<maplibre-marker lng-lat="[0,0]"></maplibre-marker>');
+    await page.waitForChanges();
+    expect(spy).toHaveReceivedEvent();
+  });*/
+
   // TODO: Create test to detect if the instance is created
 
   it('reacts to lng-lat changes', async () => {
