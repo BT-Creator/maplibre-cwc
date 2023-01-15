@@ -13,6 +13,10 @@ describe('maplibre-nav-control', () => {
 
   it('renders webcomponent', async () => {
     expect(navEl).toHaveClass('hydrated');
+    expect(navEl).not.toHaveAttribute('zoom');
+    expect(navEl).not.toHaveAttribute('pitch');
+    expect(navEl).not.toHaveAttribute('compass');
+    expect(navEl).toHaveAttribute('position');
   });
 
   it('renders on map', async () => {
@@ -31,12 +35,11 @@ describe('maplibre-nav-control', () => {
     await page.waitForChanges();
 
     // Check if attributes are set in Web component
-    // TODO: This doesn't work atm, refactor later
-    /* navEl = await page.find('maplibre-nav-control');
-    expect(navEl.getAttribute('zoom')).toEqual('true');
-    expect(navEl.getAttribute('compass')).toEqual('true');
-    expect(navEl.getAttribute('pitch')).toEqual('true');
-    expect(navEl.getAttribute('position')).toEqual('bottom-left'); */
+    navEl = await page.find('maplibre-nav-control');
+    expect(navEl).toHaveAttribute('zoom');
+    expect(navEl).toHaveAttribute('compass');
+    expect(navEl).toHaveAttribute('pitch');
+    expect(navEl.getAttribute('position')).toEqual('bottom-left');
 
     // Checks if it renders in Shadow Root
     const buttonGroup = mapEl.shadowRoot.querySelector('.maplibregl-ctrl-group');
