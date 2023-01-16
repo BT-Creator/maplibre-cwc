@@ -29,11 +29,9 @@ export class MaplibreMarker {
 
   /* LOAD */
   componentWillLoad() {
-    if (this.el.innerHTML) {
-      const wrapper = document.createElement('div');
-      wrapper.appendChild(generateSlot(`maplibre-cwc-${this._id}-popup`));
-      this._instance = new Marker({ element: wrapper });
-    }
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(generateSlot(`maplibre-cwc-${this._id}-popup`));
+    this._instance = new Marker({ element: wrapper });
     this.watchLngLat(this.lngLat);
   }
 
