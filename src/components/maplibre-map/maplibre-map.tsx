@@ -31,7 +31,7 @@ export class MaplibreMap {
   }
 
   /* EVENTS */
-  @Listen('layerCreated', {passive: true})
+  @Listen('layerCreated', {passive: true, })
   listenForLayerCreation(e: CustomEvent<Marker>){
     this._store.state.initLayers = [e.detail, ...this._store.state.initLayers];
   }
