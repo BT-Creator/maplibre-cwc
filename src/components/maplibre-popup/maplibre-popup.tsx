@@ -18,6 +18,7 @@ export class MaplibrePopup {
   /**
    * Fires an event that the layer has been created
    */
+  // TODO: Rename to "layerCreate" and edit listener in maplibre-map
   @Event({bubbles: true, composed: true}) layerCreated: EventEmitter<Popup>
 
   /**

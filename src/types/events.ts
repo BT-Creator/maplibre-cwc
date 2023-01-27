@@ -1,8 +1,13 @@
-import { IControl } from 'maplibre-gl';
+import { IControl, RasterSourceSpecification } from 'maplibre-gl';
 
-declare type ControlObject = {
+declare type ControlInstance = {
   instance: IControl,
   position: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
 }
 
-export { ControlObject };
+declare type SourceInstance = {
+  id: string,
+  spec: RasterSourceSpecification
+}
+
+export { ControlInstance, SourceInstance };

@@ -2,7 +2,7 @@ import { Component, Host, h, Element, Prop, Listen } from '@stencil/core';
 import { ObservableMap } from '@stencil/store';
 import { FullscreenControl, Map, Marker } from 'maplibre-gl';
 import { initStore, MapLibreState } from '../../stores/maplibre';
-import { ControlObject } from '../../types/events';
+import { ControlInstance, SourceInstance } from '../../types/events';
 
 @Component({
   tag: 'maplibre-map',
@@ -22,6 +22,7 @@ export class MaplibreMap {
   componentDidLoad() {
     this._store.state.instance = new Map({
       container: this.el.shadowRoot.getElementById('map-instance-element'),
+      // TODO: We'll need to pre-generate this before creating the map instance... Maybe find a way to create a "empty" spec? Or pre-generate it in the state?
       style: 'https://demotiles.maplibre.org/style.json',
       center: [-74.5, 40],
       zoom: 9,
@@ -31,14 +32,19 @@ export class MaplibreMap {
   }
 
   /* EVENTS */
-  @Listen('layerCreated', {passive: true, })
+  @Listen('layerCreated', {passive: true})
   listenForLayerCreation(e: CustomEvent<Marker>){
     this._store.state.initLayers = [e.detail, ...this._store.state.initLayers];
   }
 
   @Listen('controlCreated', {passive: true})
-  listenForControlCreation(e: CustomEvent<ControlObject>){
+  listenForControlCreation(e: CustomEvent<ControlInstance>){
     this._store.state.initControls = [e.detail, ...this._store.state.initControls];
+  }
+
+  @Listen('sourceCreate', {passive: true})
+  listenForSourceCreation(e: CustomEvent<SourceInstance>){
+    this._store.state.initSources = [e.detail, ...this._store.state.initSources];
   }
 
   /* RENDER */

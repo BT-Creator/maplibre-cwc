@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { LngLatLike, Marker, Popup } from "maplibre-gl";
-import { ControlObject } from "./types/events";
+import { ControlInstance, SourceInstance } from "./types/events";
 export namespace Components {
     interface MaplibreMap {
         /**
@@ -48,6 +48,10 @@ export namespace Components {
          */
         "maxWidth": string;
     }
+    interface MaplibreRasterSource {
+        "scheme": 'xyz' | 'tms';
+        "url": string;
+    }
 }
 export interface MaplibreMarkerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -60,6 +64,10 @@ export interface MaplibreNavControlCustomEvent<T> extends CustomEvent<T> {
 export interface MaplibrePopupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMaplibrePopupElement;
+}
+export interface MaplibreRasterSourceCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMaplibreRasterSourceElement;
 }
 declare global {
     interface HTMLMaplibreMapElement extends Components.MaplibreMap, HTMLStencilElement {
@@ -86,11 +94,18 @@ declare global {
         prototype: HTMLMaplibrePopupElement;
         new (): HTMLMaplibrePopupElement;
     };
+    interface HTMLMaplibreRasterSourceElement extends Components.MaplibreRasterSource, HTMLStencilElement {
+    }
+    var HTMLMaplibreRasterSourceElement: {
+        prototype: HTMLMaplibreRasterSourceElement;
+        new (): HTMLMaplibreRasterSourceElement;
+    };
     interface HTMLElementTagNameMap {
         "maplibre-map": HTMLMaplibreMapElement;
         "maplibre-marker": HTMLMaplibreMarkerElement;
         "maplibre-nav-control": HTMLMaplibreNavControlElement;
         "maplibre-popup": HTMLMaplibrePopupElement;
+        "maplibre-raster-source": HTMLMaplibreRasterSourceElement;
     }
 }
 declare namespace LocalJSX {
@@ -118,7 +133,7 @@ declare namespace LocalJSX {
         /**
           * Fires an event that the control has been created
          */
-        "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlObject>) => void;
+        "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlInstance>) => void;
         /**
           * Enables the pitch control (and compass control, if not enabled)
          */
@@ -146,11 +161,17 @@ declare namespace LocalJSX {
          */
         "onLayerCreated"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
     }
+    interface MaplibreRasterSource {
+        "onSourceCreate"?: (event: MaplibreRasterSourceCustomEvent<SourceInstance>) => void;
+        "scheme"?: 'xyz' | 'tms';
+        "url"?: string;
+    }
     interface IntrinsicElements {
         "maplibre-map": MaplibreMap;
         "maplibre-marker": MaplibreMarker;
         "maplibre-nav-control": MaplibreNavControl;
         "maplibre-popup": MaplibrePopup;
+        "maplibre-raster-source": MaplibreRasterSource;
     }
 }
 export { LocalJSX as JSX };
@@ -161,6 +182,7 @@ declare module "@stencil/core" {
             "maplibre-marker": LocalJSX.MaplibreMarker & JSXBase.HTMLAttributes<HTMLMaplibreMarkerElement>;
             "maplibre-nav-control": LocalJSX.MaplibreNavControl & JSXBase.HTMLAttributes<HTMLMaplibreNavControlElement>;
             "maplibre-popup": LocalJSX.MaplibrePopup & JSXBase.HTMLAttributes<HTMLMaplibrePopupElement>;
+            "maplibre-raster-source": LocalJSX.MaplibreRasterSource & JSXBase.HTMLAttributes<HTMLMaplibreRasterSourceElement>;
         }
     }
 }

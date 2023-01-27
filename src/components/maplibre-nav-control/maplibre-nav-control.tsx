@@ -1,6 +1,6 @@
 import { Component, Prop, Event, EventEmitter, Watch } from '@stencil/core';
 import { NavigationControl } from 'maplibre-gl';
-import { ControlObject } from '../../types/events';
+import { ControlInstance } from '../../types/events';
 
 @Component({tag: 'maplibre-nav-control'})
 export class MaplibreNavControl {
@@ -13,7 +13,8 @@ export class MaplibreNavControl {
   /** The position of the control */
   @Prop({reflect: true}) position: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right' = 'top-right';
   /** Fires an event that the control has been created */
-  @Event({bubbles: true, composed: true}) controlCreated: EventEmitter<ControlObject>;
+  // TODO: Rename to "controlCreate" and edit listener in maplibre-map
+  @Event({bubbles: true, composed: true}) controlCreated: EventEmitter<ControlInstance>;
   /** The internal IControl object */
   _instance: NavigationControl;
 
