@@ -4,24 +4,16 @@ import { generateSlot } from '../../util/slots';
 
 @Component({ tag: 'maplibre-marker'})
 export class MaplibreMarker {
-  /**
-   * The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554])
-   */
+  /** The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554]) */
   @Prop({ reflect: true }) lngLat!: LngLatLike | string;
 
-  /**
-   * Fires an event that the layer has been created
-   */
+  /** Fires an event that the layer has been created */
+  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
   @Event({ bubbles: true, composed: true }) layerCreate: EventEmitter<Marker>;
 
-  /**
-   * The Marker object
-   */
+  /** The Marker object */
   _instance: Marker = new Marker({ draggable: true });
-
-  /**
-   * The internal ID
-   */
+  /** The internal ID */
   // TODO: Replace with state-based number
   _id: string = crypto.randomUUID();
 

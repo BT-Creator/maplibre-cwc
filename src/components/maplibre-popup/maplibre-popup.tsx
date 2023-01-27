@@ -12,6 +12,7 @@ export class MaplibrePopup {
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
 
   /** Fires an event that the layer has been created */
+  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
   @Event({bubbles: true, composed: true}) layerCreate: EventEmitter<Popup>
 
   /** Internal ID of popup */

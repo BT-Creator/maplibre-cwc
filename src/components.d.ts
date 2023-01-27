@@ -54,6 +54,10 @@ export namespace Components {
          */
         "scheme": 'xyz' | 'tms';
         /**
+          * The size of the tile in pixels
+         */
+        "tileSize": number;
+        /**
           * The url to fetch the tiles
          */
         "url": string;
@@ -176,6 +180,10 @@ declare namespace LocalJSX {
           * The format of the URL parameters
          */
         "scheme"?: 'xyz' | 'tms';
+        /**
+          * The size of the tile in pixels
+         */
+        "tileSize"?: number;
         /**
           * The url to fetch the tiles
          */

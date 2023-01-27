@@ -9,11 +9,14 @@ export class MaplibreRasterSource {
   @Prop() url: string;
   /** The format of the URL parameters */
   @Prop() scheme: 'xyz' | 'tms' = 'xyz';
-
+  /** The size of the tile in pixels */
+  @Prop() tileSize = 512;
   /** Fire an event that the layer has been created */
   @Event({composed: true, bubbles: true}) sourceCreate: EventEmitter<SourceInstance>;
 
+  /** The internal ID */
   _id: string = crypto.randomUUID();
+  /** The layer specification */
   _spec: RasterSourceSpecification;
 
 
@@ -21,7 +24,10 @@ export class MaplibreRasterSource {
   componentWillLoad() {
     this._spec = {
       type: 'raster',
-      url: this.url,
+      tiles: [
+        this.url
+      ],
+      tileSize: this.tileSize,
       scheme: this.scheme
     };
   }
