@@ -11,6 +11,8 @@ export class MaplibreRasterSource {
   @Prop() scheme: 'xyz' | 'tms' = 'xyz';
   /** The size of the tile in pixels */
   @Prop() tileSize = 512;
+  /** The max zoom allowed for this source*/
+  @Prop() maxZoom = 22;
   /** Fire an event that the layer has been created */
   @Event({composed: true, bubbles: true}) sourceCreate: EventEmitter<SourceInstance>;
 
@@ -28,7 +30,8 @@ export class MaplibreRasterSource {
         this.url
       ],
       tileSize: this.tileSize,
-      scheme: this.scheme
+      scheme: this.scheme,
+      maxzoom: this.maxZoom
     };
   }
 

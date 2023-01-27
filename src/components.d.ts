@@ -50,6 +50,10 @@ export namespace Components {
     }
     interface MaplibreRasterSource {
         /**
+          * The max zoom allowed for this source
+         */
+        "maxZoom": number;
+        /**
           * The format of the URL parameters
          */
         "scheme": 'xyz' | 'tms';
@@ -172,6 +176,10 @@ declare namespace LocalJSX {
         "onLayerCreate"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
     }
     interface MaplibreRasterSource {
+        /**
+          * The max zoom allowed for this source
+         */
+        "maxZoom"?: number;
         /**
           * Fire an event that the layer has been created
          */

@@ -7,10 +7,12 @@
 
 ## Properties
 
-| Property | Attribute | Description                      | Type             | Default     |
-| -------- | --------- | -------------------------------- | ---------------- | ----------- |
-| `scheme` | `scheme`  | The format of the URL parameters | `"tms" \| "xyz"` | `'xyz'`     |
-| `url`    | `url`     | The url to fetch the tiles       | `string`         | `undefined` |
+| Property   | Attribute   | Description                          | Type             | Default     |
+| ---------- | ----------- | ------------------------------------ | ---------------- | ----------- |
+| `maxZoom`  | `max-zoom`  | The max zoom allowed for this source | `number`         | `22`        |
+| `scheme`   | `scheme`    | The format of the URL parameters     | `"tms" \| "xyz"` | `'xyz'`     |
+| `tileSize` | `tile-size` | The size of the tile in pixels       | `number`         | `512`       |
+| `url`      | `url`       | The url to fetch the tiles           | `string`         | `undefined` |
 
 
 ## Events
