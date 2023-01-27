@@ -32,10 +32,12 @@ export class MaplibreMap {
   }
 
   componentDidLoad() {
-    /*
-      TODO: (Turn this into an issue) Before setting the map, we should set the max-zoom of the map by taking the sources and setting the lowest value as a max zoom level.
-      But of course, if max-zoom is set explicitly, it should use that one instead
-    */
+    /**
+     * TODO: (Turn this into an issue) Before setting the map, we should set the max-zoom of the map by taking the sources and setting the lowest value as a max zoom level. But of course, if max-zoom is set explicitly, it should use that one instead
+     */
+    /**
+     * TODO: (Turn this into an issue) You should be able to more easily set 1 base layer (Like the OSM Street map) or pass an Style URL (Like done in the example of Maplibre itself).
+     */
     this._initState.options.container = this.el.shadowRoot.getElementById('map-instance-element');
     console.log(this._initState);
     this._instance = new Map(this._initState.options);
