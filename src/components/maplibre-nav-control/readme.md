@@ -19,9 +19,9 @@ Some special behavior to note:
 
 ## Events
 
-| Event            | Description                                      | Type                                                                                                           |
-| ---------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `controlCreated` | Fires an event that the control has been created | `CustomEvent<{ instance: IControl; position: "top-left" \| "top-right" \| "bottom-left" \| "bottom-right"; }>` |
+| Event           | Description                                      | Type                                                                                                           |
+| --------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `controlCreate` | Fires an event that the control has been created | `CustomEvent<{ instance: IControl; position: "top-left" \| "top-right" \| "bottom-left" \| "bottom-right"; }>` |
 
 
 ----------------------------------------------

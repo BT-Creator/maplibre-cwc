@@ -5,9 +5,12 @@ import { SourceInstance } from '../../types/events';
 @Component({tag: 'maplibre-raster-source'})
 export class MaplibreRasterSource {
 
+  /** The url to fetch the tiles */
   @Prop() url: string;
+  /** The format of the URL parameters */
   @Prop() scheme: 'xyz' | 'tms' = 'xyz';
 
+  /** Fire an event that the layer has been created */
   @Event({composed: true, bubbles: true}) sourceCreate: EventEmitter<SourceInstance>;
 
   _id: string = crypto.randomUUID();

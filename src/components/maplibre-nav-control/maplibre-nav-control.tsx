@@ -13,8 +13,7 @@ export class MaplibreNavControl {
   /** The position of the control */
   @Prop({reflect: true}) position: 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right' = 'top-right';
   /** Fires an event that the control has been created */
-  // TODO: Rename to "controlCreate" and edit listener in maplibre-map
-  @Event({bubbles: true, composed: true}) controlCreated: EventEmitter<ControlInstance>;
+  @Event({bubbles: true, composed: true}) controlCreate: EventEmitter<ControlInstance>;
   /** The internal IControl object */
   _instance: NavigationControl;
 
@@ -25,7 +24,7 @@ export class MaplibreNavControl {
   }
 
   componentDidLoad() {
-    this.controlCreated.emit({instance: this._instance, position: this.position});
+    this.controlCreate.emit({instance: this._instance, position: this.position});
   }
 
   /* STATE */

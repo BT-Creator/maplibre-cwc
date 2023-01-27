@@ -12,8 +12,7 @@ export class MaplibreMarker {
   /**
    * Fires an event that the layer has been created
    */
-  // TODO: Rename to "layerCreate" and edit listener in maplibre-map
-  @Event({ bubbles: true, composed: true }) layerCreated: EventEmitter<Marker>;
+  @Event({ bubbles: true, composed: true }) layerCreate: EventEmitter<Marker>;
 
   /**
    * The Marker object
@@ -37,7 +36,7 @@ export class MaplibreMarker {
   }
 
   componentDidLoad() {
-    this.layerCreated.emit(this._instance);
+    this.layerCreate.emit(this._instance);
   }
 
   /* STATE */

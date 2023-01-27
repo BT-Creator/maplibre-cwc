@@ -49,7 +49,13 @@ export namespace Components {
         "maxWidth": string;
     }
     interface MaplibreRasterSource {
+        /**
+          * The format of the URL parameters
+         */
         "scheme": 'xyz' | 'tms';
+        /**
+          * The url to fetch the tiles
+         */
         "url": string;
     }
 }
@@ -123,7 +129,7 @@ declare namespace LocalJSX {
         /**
           * Fires an event that the layer has been created
          */
-        "onLayerCreated"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
+        "onLayerCreate"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
     }
     interface MaplibreNavControl {
         /**
@@ -133,7 +139,7 @@ declare namespace LocalJSX {
         /**
           * Fires an event that the control has been created
          */
-        "onControlCreated"?: (event: MaplibreNavControlCustomEvent<ControlInstance>) => void;
+        "onControlCreate"?: (event: MaplibreNavControlCustomEvent<ControlInstance>) => void;
         /**
           * Enables the pitch control (and compass control, if not enabled)
          */
@@ -159,11 +165,20 @@ declare namespace LocalJSX {
         /**
           * Fires an event that the layer has been created
          */
-        "onLayerCreated"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
+        "onLayerCreate"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
     }
     interface MaplibreRasterSource {
+        /**
+          * Fire an event that the layer has been created
+         */
         "onSourceCreate"?: (event: MaplibreRasterSourceCustomEvent<SourceInstance>) => void;
+        /**
+          * The format of the URL parameters
+         */
         "scheme"?: 'xyz' | 'tms';
+        /**
+          * The url to fetch the tiles
+         */
         "url"?: string;
     }
     interface IntrinsicElements {
