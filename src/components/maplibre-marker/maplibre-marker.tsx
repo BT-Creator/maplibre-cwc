@@ -7,9 +7,8 @@ export class MaplibreMarker {
   /** The latitude & longitude of the marker. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554]) */
   @Prop({ reflect: true }) lngLat!: LngLatLike | string;
 
-  /** Fires an event that the layer has been created */
-  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
-  @Event({ bubbles: true, composed: true }) layerCreate: EventEmitter<Marker>;
+  /** Fires an event that the marker has been created */
+  @Event({ bubbles: true, composed: true }) eventedCreate: EventEmitter<Marker>;
 
   /** The Marker object */
   _instance: Marker = new Marker({ draggable: true });
@@ -28,7 +27,7 @@ export class MaplibreMarker {
   }
 
   componentDidLoad() {
-    this.layerCreate.emit(this._instance);
+    this.eventedCreate.emit(this._instance);
   }
 
   /* STATE */

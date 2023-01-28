@@ -11,9 +11,8 @@ export class MaplibrePopup {
   /** The latitude & longitude of the popup. Should be an 2-length number array or a JSON Array string (E.g. [0.2354, 10.554]) */
   @Prop({reflect: true}) lngLat!: LngLatLike | string;
 
-  /** Fires an event that the layer has been created */
-  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
-  @Event({bubbles: true, composed: true}) layerCreate: EventEmitter<Popup>
+  /** Fires an event that the popup has been created */
+  @Event({bubbles: true, composed: true}) eventedCreate: EventEmitter<Popup>
 
   /** Internal ID of popup */
   _id: string = crypto.randomUUID();
@@ -31,7 +30,7 @@ export class MaplibrePopup {
   }
 
   componentDidLoad() {
-    this.layerCreate.emit(this._instance);
+    this.eventedCreate.emit(this._instance);
   }
 
   /* STATE */

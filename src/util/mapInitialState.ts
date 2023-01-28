@@ -10,7 +10,7 @@ import { MapInitialState } from '../components/maplibre-map/maplibre-map';
  */
 function generateEmptyState(): MapInitialState{
   return {
-    layers: [],
+    eventeds: [],
     controls: [],
     options: {
       container: undefined,

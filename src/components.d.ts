@@ -135,9 +135,9 @@ declare namespace LocalJSX {
          */
         "lngLat": LngLatLike | string;
         /**
-          * Fires an event that the layer has been created
+          * Fires an event that the marker has been created
          */
-        "onLayerCreate"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
+        "onEventedCreate"?: (event: MaplibreMarkerCustomEvent<Marker>) => void;
     }
     interface MaplibreNavControl {
         /**
@@ -171,9 +171,9 @@ declare namespace LocalJSX {
          */
         "maxWidth"?: string;
         /**
-          * Fires an event that the layer has been created
+          * Fires an event that the popup has been created
          */
-        "onLayerCreate"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
+        "onEventedCreate"?: (event: MaplibrePopupCustomEvent<Popup>) => void;
     }
     interface MaplibreRasterSource {
         /**

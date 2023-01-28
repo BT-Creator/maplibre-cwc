@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event         | Description                                    | Type                  |
-| ------------- | ---------------------------------------------- | --------------------- |
-| `layerCreate` | Fires an event that the layer has been created | `CustomEvent<Marker>` |
+| Event           | Description                                     | Type                  |
+| --------------- | ----------------------------------------------- | --------------------- |
+| `eventedCreate` | Fires an event that the marker has been created | `CustomEvent<Marker>` |
 
 
 ----------------------------------------------

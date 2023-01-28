@@ -15,9 +15,9 @@
 
 ## Events
 
-| Event         | Description                                    | Type                 |
-| ------------- | ---------------------------------------------- | -------------------- |
-| `layerCreate` | Fires an event that the layer has been created | `CustomEvent<Popup>` |
+| Event           | Description                                    | Type                 |
+| --------------- | ---------------------------------------------- | -------------------- |
+| `eventedCreate` | Fires an event that the popup has been created | `CustomEvent<Popup>` |
 
 
 ----------------------------------------------

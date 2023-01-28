@@ -4,8 +4,7 @@ import { ControlInstance, SourceInstance } from '../../types/events';
 import { generateEmptyState } from '../../util/mapInitialState';
 
 export declare type MapInitialState = {
-  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
-  layers: Array<Marker|Popup>,
+  eventeds: Array<Marker|Popup>,
   controls: Array<ControlInstance>,
   options: MapOptions
 }
@@ -19,7 +18,9 @@ export class MaplibreMap {
   /** Allows the user to open the map in fullscreen mode */
   @Prop() allowFullscreen = false;
 
+  /** The initial state of the map */
   _initState: MapInitialState = generateEmptyState();
+  /** The map instance */
   _instance: Map;
 
   @Element() el: HTMLElement;
@@ -41,18 +42,17 @@ export class MaplibreMap {
     this._initState.options.container = this.el.shadowRoot.getElementById('map-instance-element');
     console.log(this._initState);
     this._instance = new Map(this._initState.options);
-    this._initState.layers.forEach(layer => layer.addTo(this._instance));
+    this._initState.eventeds.forEach(layer => layer.addTo(this._instance));
     this._initState.controls.forEach(control => this._instance.addControl(control.instance, control.position));
     if(this.allowFullscreen) this._instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
   }
 
   /* EVENTS */
-  // TODO: We should rename layers to "evented", as layers actual refers to something else in the style specification
-  @Listen('layerCreate', {passive: true})
+  @Listen('eventedCreate', {passive: true})
   listenForLayerCreation(e: CustomEvent<Marker|Popup>){
     (this._instance)
       ? e.detail.addTo(this._instance)
-      : this._initState.layers.push(e.detail);
+      : this._initState.eventeds.push(e.detail);
   }
 
   @Listen('controlCreate', {passive: true})
