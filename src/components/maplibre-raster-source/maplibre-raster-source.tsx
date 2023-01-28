@@ -2,9 +2,11 @@ import { Component, EventEmitter, Prop, Event } from '@stencil/core';
 import { RasterSourceSpecification } from 'maplibre-gl';
 import { SourceInstance } from '../../types/events';
 
+// TODO: Make sure that when the spec is updated, the associated source is also updated (Note that this needs to be a bulk update, so componentDidUpdate)
+// TODO: Make sure that when the element is removed, the source and layer is also detached from the map
+// TODO: Implement E2E testing
 @Component({tag: 'maplibre-raster-source'})
 export class MaplibreRasterSource {
-
   /** The url to fetch the tiles */
   @Prop() url: string;
   /** The format of the URL parameters */
