@@ -22,6 +22,12 @@ export class MaplibreMap {
   _initState: MapInitialState = generateEmptyState();
   /** The map instance */
   _instance: Map;
+  /** MutationObserver */
+  _observer: MutationObserver
+  /** Actions that can be taken with the mutation Observer */
+  _mutationActions = {
+    'maplibre-raster-source': this.listenForSourceDelete.bind(this)
+  };
 
   @Element() el: HTMLElement;
 
@@ -30,6 +36,7 @@ export class MaplibreMap {
     this._initState.options.center = [0, 0];
     this._initState.options.zoom = 9;
     this._initState.options.attributionControl = false;
+    this._observer = new MutationObserver(this.handleMutations.bind(this));
   }
 
   componentDidLoad() {
@@ -37,10 +44,12 @@ export class MaplibreMap {
     this._instance = new Map(this._initState.options);
     this._initState.eventeds.forEach(layer => layer.addTo(this._instance));
     this._initState.controls.forEach(control => this._instance.addControl(control.instance, control.position));
+    this._observer.observe(this.el, {childList: true, attributes: false});
     if(this.allowFullscreen) this._instance.addControl(new FullscreenControl({container: this.el.shadowRoot.getElementById('map-instance-element')}));
   }
 
   /* EVENTS */
+  // DOM Events
   @Listen('eventedCreate', {passive: true})
   listenForLayerCreation(e: CustomEvent<Marker|Popup>){
     (this._instance)
@@ -74,6 +83,17 @@ export class MaplibreMap {
     this._instance.addLayer({id: e.detail.id, type: e.detail.spec.type, source: e.detail.id});
   }
 
+  // MutationEvents
+  handleMutations(list:MutationRecord[], _observer:MutationObserver) {
+    list.filter(el => (el.removedNodes.length > 0))
+      .forEach(el => el.removedNodes.forEach(node => this._mutationActions[(node as HTMLElement).localName]((node as HTMLElement).getAttribute('data-id')) ));
+  }
+
+  listenForSourceDelete(id:string) {
+    this._instance.removeLayer(id);
+    this._instance.removeSource(id);
+  }
+
   /* RENDER */
   render() {
     return (
@@ -87,5 +107,6 @@ export class MaplibreMap {
   /* DISCONNECT */
   disconnectedCallback(){
     this._instance.remove();
+    this._observer.disconnect();
   }
 }

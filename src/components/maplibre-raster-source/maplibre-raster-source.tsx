@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Prop, Event } from '@stencil/core';
+import { Component, EventEmitter, Prop, Event, Host, h } from '@stencil/core';
 import { RasterSourceSpecification } from 'maplibre-gl';
 import { SourceInstance } from '../../types/events';
 
@@ -59,6 +59,8 @@ export class MaplibreRasterSource {
     this.sourceUpdate.emit({id: this._id, spec: this._spec});
   }
 
-  // Nothing to display, so no render :(
+  render(){
+    return (<Host data-id={this._id}></Host>);
+  }
 
 }
