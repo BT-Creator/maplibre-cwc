@@ -9,7 +9,6 @@ describe('maplibre-raster-layer', () => {
 
   it('renders', async () => {
     await page.setContent('<maplibre-map><maplibre-raster-source url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" tile-size="256" max-zoom="19"></maplibre-raster-source></maplibre-map>');
-
     const element = await page.find('maplibre-raster-source');
     expect(element).toHaveClass('hydrated');
   });
