@@ -184,6 +184,7 @@ declare namespace LocalJSX {
           * Fire an event that the layer has been created
          */
         "onSourceCreate"?: (event: MaplibreRasterSourceCustomEvent<SourceInstance>) => void;
+        "onSourceUpdate"?: (event: MaplibreRasterSourceCustomEvent<SourceInstance>) => void;
         /**
           * The format of the URL parameters
          */

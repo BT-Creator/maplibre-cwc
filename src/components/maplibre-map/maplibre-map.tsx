@@ -66,6 +66,14 @@ export class MaplibreMap {
     }
   }
 
+  @Listen('sourceUpdate', {passive: true})
+  listenForSourceUpdate(e: CustomEvent<SourceInstance>){
+    this._instance.removeLayer(e.detail.id);
+    this._instance.removeSource(e.detail.id);
+    this._instance.addSource(e.detail.id, e.detail.spec);
+    this._instance.addLayer({id: e.detail.id, type: e.detail.spec.type, source: e.detail.id});
+  }
+
   /* RENDER */
   render() {
     return (

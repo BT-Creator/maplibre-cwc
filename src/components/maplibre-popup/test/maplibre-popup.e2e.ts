@@ -14,7 +14,7 @@ describe('maplibre-popup', () => {
     map = await page.find('maplibre-map');
   })
 
-  it('renders webcomponent', async () => {
+  it('renders', async () => {
     expect(popup).toHaveClass('hydrated');
     expect(popup).toHaveAttribute('lng-lat');
     expect(popup).toHaveAttribute('max-width');

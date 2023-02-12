@@ -11,7 +11,7 @@ describe('maplibre-nav-control', () => {
     navEl = await page.find('maplibre-nav-control');
   });
 
-  it('renders webcomponent', async () => {
+  it('renders', async () => {
     expect(navEl).toHaveClass('hydrated');
     expect(navEl).not.toHaveAttribute('zoom');
     expect(navEl).not.toHaveAttribute('pitch');

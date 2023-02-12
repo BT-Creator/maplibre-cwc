@@ -13,7 +13,7 @@ describe('maplibre-raster-layer', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('calls for source tiles during map initialization', async () => {
+  it('fetches source tiles during map initialization', async () => {
     let tileRequested = false;
     page.on('request', request => {
       if(tileRequested === false){
@@ -29,7 +29,7 @@ describe('maplibre-raster-layer', () => {
     expect(tileRequested).toEqual(true);
   });
 
-  it('calls for source tiles after map initialization', async () => {
+  it('fetches source tiles after map initialization', async () => {
     let tileRequested = false;
     page.on('request', request => {
       if(tileRequested === false){

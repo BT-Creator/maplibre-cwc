@@ -17,6 +17,7 @@ export class MaplibreRasterSource {
   @Prop() maxZoom = 22;
   /** Fire an event that the layer has been created */
   @Event({composed: true, bubbles: true}) sourceCreate: EventEmitter<SourceInstance>;
+  @Event({composed: true, bubbles: true}) sourceUpdate: EventEmitter<SourceInstance>;
 
   /** The internal ID */
   _id: string = crypto.randomUUID();
@@ -24,7 +25,7 @@ export class MaplibreRasterSource {
   _spec: RasterSourceSpecification;
 
 
-  /* LAYER */
+  /* LOAD */
   componentWillLoad() {
     this._spec = {
       type: 'raster',
@@ -39,6 +40,23 @@ export class MaplibreRasterSource {
 
   componentDidLoad() {
     this.sourceCreate.emit({id: this._id, spec: this._spec});
+  }
+
+  /* UPDATE */
+  componentWillUpdate(){
+    this._spec = {
+      type: 'raster',
+      tiles: [
+        this.url
+      ],
+      tileSize: this.tileSize,
+      scheme: this.scheme,
+      maxzoom: this.maxZoom
+    };
+  }
+
+  componentDidUpdate() {
+    this.sourceUpdate.emit({id: this._id, spec: this._spec});
   }
 
   // Nothing to display, so no render :(
