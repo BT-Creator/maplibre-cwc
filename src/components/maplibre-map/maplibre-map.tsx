@@ -34,7 +34,6 @@ export class MaplibreMap {
 
   componentDidLoad() {
     this._initState.options.container = this.el.shadowRoot.getElementById('map-instance-element');
-    console.log(this._initState);
     this._instance = new Map(this._initState.options);
     this._initState.eventeds.forEach(layer => layer.addTo(this._instance));
     this._initState.controls.forEach(control => this._instance.addControl(control.instance, control.position));
