@@ -27,7 +27,7 @@ export class MaplibreMap {
 
   /* LOAD */
   componentWillLoad() {
-    this._initState.options.center = [-74.5, 40];
+    this._initState.options.center = [0, 0];
     this._initState.options.zoom = 9;
     this._initState.options.attributionControl = false;
   }
@@ -59,6 +59,7 @@ export class MaplibreMap {
   listenForSourceCreation(e: CustomEvent<SourceInstance>){
     if(this._instance){
       this._instance.addSource(e.detail.id, e.detail.spec);
+      this._instance.addLayer({id: e.detail.id, type: e.detail.spec.type, source: e.detail.id});
     } else {
       (this._initState.options.style as StyleSpecification).sources[e.detail.id] = e.detail.spec;
       (this._initState.options.style as StyleSpecification).layers.push({id: e.detail.id, type: e.detail.spec.type, source: e.detail.id});

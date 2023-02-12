@@ -14,10 +14,10 @@ describe('maplibre-raster-layer', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('calls for source tiles', async () => {
+  it('calls for source tiles during map initialization', async () => {
     let tileRequested = false;
     page.on('request', request => {
-      if(tileRequested == false){
+      if(tileRequested === false){
         if(request.url().includes('https://tile.openstreetmap.org/')){
           tileRequested = true;
         }
@@ -25,6 +25,27 @@ describe('maplibre-raster-layer', () => {
     });
 
     await page.setContent('<maplibre-map><maplibre-raster-source url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" tile-size="256" max-zoom="19"></maplibre-raster-source></maplibre-map>');
+    await page.waitForChanges();
+
+    expect(tileRequested).toEqual(true);
+  });
+
+  it('calls for source tiles after map initialization', async () => {
+    let tileRequested = false;
+    page.on('request', request => {
+      if(tileRequested === false){
+        if(request.url().includes('https://tile.openstreetmap.org/')){
+          tileRequested = true;
+        }
+      }
+    });
+
+    await page.setContent('<maplibre-map></maplibre-map>');
+    await page.waitForChanges();
+
+    expect(tileRequested).toEqual(false);
+
+    await page.$eval('maplibre-map', el => el.innerHTML = '<maplibre-raster-source url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" tile-size="256" max-zoom="19"></maplibre-raster-source>');
     await page.waitForChanges();
 
     expect(tileRequested).toEqual(true);

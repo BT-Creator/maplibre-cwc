@@ -41,6 +41,7 @@
         ],
         // TODO: Fix rules so that they don't report classes as
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "off"
+        "@typescript-eslint/no-unused-vars": "off",
+        "eqeqeq": ["error", "always"]
     }
 }
